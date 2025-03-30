@@ -2,12 +2,12 @@ import { DataSource } from "typeorm";
 import { User } from "./entities/user";
 
 export const AppDataSource = new DataSource({
-    type: "mysql",
-    host: "localhost",
-    port: 3306,
-    username: "root",
-    password: "", // Please add here your password in your database
-    database: "user_management_api",
+    type: "mysql", // Database type in here we choose MySql
+    host: "localhost", // This is our database hostname
+    port: 3306, // Our database port number
+    username: "root", // Database username here our username is root
+    password: "", // And this is the database password
+    database: "user_management_api", // Database name
     entities: [User],
     synchronize: true,
     logging: true,
@@ -18,11 +18,11 @@ async function initializeDatabase() {
     try {
         // First connect without specifying the database
         const adminDataSource = new DataSource({
-            type: "mysql",
-            host: "localhost",
-            port: 3306,
-            username: "root",
-            password: "", // Please add here your password in your database
+            type: "mysql", // Database type in here we choose MySql
+            host: "localhost", // This is our database hostname
+            port: 3306, // Our database port number
+            username: "root", // Database username here our username is root
+            password: "", // And this is the database password
         });
 
         await adminDataSource.initialize();

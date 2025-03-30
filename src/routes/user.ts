@@ -6,7 +6,7 @@ import { validateUserRequest } from "../middleware/validate-request";
 const router = Router();
 const userRepository = AppDataSource.getRepository(User);
 
-// Create user with hashed password
+// Sullano's task: Create user functionality with hashed password
 router.post('/', validateUserRequest, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { firstname, lastname, middlename, email, password } = req.body;
