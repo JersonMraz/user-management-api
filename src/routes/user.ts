@@ -47,4 +47,31 @@ router.delete("/:id", async (req: Request, res: Response, next: NextFunction) =>
         next(error);
     }
 });
+
+//Mabano List of all users and find by id
+// Get all users
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {        
+    try {
+        const users = await userRepository.find();
+        res.status(200).json(users);
+    } catch (error) {
+        next(error);
+    }
+}
+);
+// Get user by ID
+router.get('/:id', async (req: Request, res: Response, next: NextFunction) => { 
+    try {
+        const user = await userRepository.findOneBy({ id: Number(req.params.id) });
+        
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+}
+);
 export default router;
