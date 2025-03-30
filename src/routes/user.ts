@@ -26,6 +26,28 @@ router.post('/', validateUserRequest, async (req: Request, res: Response, next: 
 });
 
 
+// Alferez: Creating user deletion functionality
+router.delete("/:id", async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = parseInt(req.params.id);
+
+        if (isNaN(id)) {
+            return res.status(400).json({ message: "Invalid user ID" });
+        }
+
+        // Try deleting the user directly
+        const deleteResult = await userRepository.delete(id);
+
+        if (deleteResult.affected === 0) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json({ message: "User deleted successfully" });
+    } catch (error) {
+        next(error);
+    }
+});
+
 //Mabano List of all users and find by id
 // Get all users
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {        
@@ -52,6 +74,4 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
     }
 }
 );
-
-
 export default router;
